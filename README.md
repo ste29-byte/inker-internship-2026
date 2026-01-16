@@ -1,87 +1,211 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>115 Inker Internship</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
-    <style type="text/css">
-        body { margin: 0; padding: 0; background-color: #1a1a1a; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-        table, td { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
-        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
-        p { display: block; margin: 13px 0; }
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+    <style>
+        /* 全域設定 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* 網頁背景深灰 */
+            font-family: 'Noto Serif TC', serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh; /* 確保畫面高度足夠 */
+        }
+
+        /* 海報主容器 */
+        .poster-container {
+            width: 100%;
+            max-width: 600px; /* 限制最大寬度，模擬手機/海報比例 */
+            height: 800px;    /* 設定固定高度，保持海報長寬感 */
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5); /* 讓海報浮起來的陰影 */
+            
+            /* 關鍵修改：使用 CSS 背景圖，避免白塊問題 */
+            background-image: url('https://images.pexels.com/photos/7972555/pexels-photo-7972555.jpeg');
+            background-size: cover;     /* 讓圖片填滿 */
+            background-position: center bottom; /* 圖片對齊下方 */
+            background-color: #333;     /* 圖片載入前的底色 */
+        }
+
+        /* 漸層遮罩：確保文字清晰可見 */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 由下往上的黑色漸層，底部較黑以襯托文字 */
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 讓評價在上面，資訊在下面 */
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* 頂部：評價區 */
+        .reviews-section {
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .review-item {
+            margin-bottom: 20px;
+        }
+        .stars {
+            color: #ffd700; /* 金色星星 */
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .quote {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        /* 底部：主要資訊區 */
+        .content-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Slogan */
+        .slogan {
+            font-family: 'Playfair Display', serif;
+            color: #ccc;
+            font-size: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            display: inline-block;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* 主標題 */
+        .main-title {
+            color: #ffffff;
+            font-size: 46px; /* 稍微加大 */
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        .sub-title {
+            color: #dddddd;
+            font-size: 18px;
+            letter-spacing: 4px;
+            margin-top: 5px;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        /* 資訊細節 */
+        .info-details {
+            font-family: Arial, sans-serif; /* 資訊類文字用無襯線體較易讀 */
+            color: #aaaaaa;
+            font-size: 13px;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        .highlight-red {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        .highlight-white {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .tag-box {
+            border: 1px solid #999;
+            padding: 1px 5px;
+            font-size: 11px;
+            border-radius: 2px;
+            color: #ccc;
+            margin-right: 5px;
+        }
+
+        /* 按鈕樣式 */
+        .cta-button {
+            display: inline-block;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.8);
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            padding: 12px 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background-color: rgba(0,0,0,0.2);
+            backdrop-filter: blur(4px); /* 磨砂玻璃效果 */
+        }
         
-        /* 針對手機版的調整 */
-        @media only screen and (max-width:480px) {
-            .mobile-content { padding-left: 10px !important; padding-right: 10px !important; }
-            .main-title { font-size: 32px !important; }
+        .cta-button:hover {
+            background-color: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        /* 手機版微調 */
+        @media screen and (max-width: 480px) {
+            .poster-container {
+                height: 100vh; /* 手機上填滿整個螢幕 */
+                max-width: 100%;
+            }
+            .main-title { font-size: 36px; }
         }
     </style>
-    </head>
-<body style="margin:0; padding:0; background-color:#1a1a1a;">
-    <center>
-        <div style="background-color:#1a1a1a; max-width: 600px; margin: 0 auto;">
+</head>
+<body>
+
+    <div class="poster-container">
+        <div class="overlay">
             
-            <div style="background-image: url('https://images.pexels.com/photos/7972555/pexels-photo-7972555.jpeg'); background-color: #333333; background-position: center bottom; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 600px; height: 800px; position: relative;">
+            <div class="reviews-section">
+                <div class="review-item">
+                    <span class="stars">★★★★★</span>
+                    <div class="quote">"有了年輕新血的加入，讓團隊氣氛更為融洽了！"</div>
+                </div>
+                <div class="review-item">
+                    <span class="stars">★★★★★</span>
+                    <div class="quote">"打破刻板印象，很高興能成功獲取不同角度思維"</div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="slogan">用Ｚ世代的眼睛，看見未來的商業契機</div>
                 
-                <table role="presentation" width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" style="background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);">
-                    <tr>
-                        <td valign="top" style="padding: 20px; height: 20%;">
-                             <div style="font-family: 'Noto Serif TC', serif; color: #f0f0f0; text-align: center; margin-top: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
-                                
-                                <div style="margin-bottom: 20px;">
-                                    <div style="color: #ffd700; font-size: 16px; margin-bottom: 5px; line-height: 1;">★★★★★</div>
-                                    <div style="font-size: 13px; font-style: italic; line-height: 1.5;">
-                                        "有了年輕新血的加入，讓團隊氣氛更為融洽了！"
-                                    </div>
-                                </div>
+                <h1 class="main-title">115 INKER</h1>
+                <div class="sub-title">樹人實習名額搶先登記</div>
 
-                                <div>
-                                    <div style="color: #ffd700; font-size: 16px; margin-bottom: 5px; line-height: 1;">★★★★★</div>
-                                    <div style="font-size: 13px; font-style: italic; line-height: 1.5;">
-                                        "打破刻板印象，很高興能成功獲取不同角度思維"
-                                    </div>
-                                </div>
+                <div class="info-details">
+                    單位報名 <span class="highlight-red">115/01/08 - 01/22</span> &nbsp;|&nbsp; 
+                    實習期間 <span class="highlight-white">暑假 7-9月</span><br>
+                    招募期間 3-5月 &nbsp;|&nbsp; 
+                    <span class="tag-box">特別說明</span> 實習生不佔原有員額
+                </div>
 
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="bottom" style="padding: 0 20px 40px 20px; text-align: center;" class="mobile-content">
-                            
-                            <div style="font-family: 'Playfair Display', serif; color: #cccccc; font-size: 14px; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.4); display: inline-block; padding-bottom: 8px; margin-bottom: 15px;">
-                                用Ｚ世代的眼睛，看見未來的商業契機
-                            </div>
-
-                            <h1 class="main-title" style="margin: 0; font-family: 'Noto Serif TC', serif; color: #ffffff; font-size: 42px; line-height: 1.1; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,0,0,0.8);">
-                                115 INKER
-                            </h1>
-                            <p style="margin: 5px 0 25px 0; font-family: 'Noto Serif TC', serif; color: #dddddd; font-size: 16px; letter-spacing: 3px;">
-                                樹人實習名額搶先登記
-                            </p>
-
-                            <div style="font-family: Arial, sans-serif; color: #aaaaaa; font-size: 12px; line-height: 1.8; letter-spacing: 1px; margin-bottom: 30px; text-transform: uppercase;">
-                                單位報名 <span style="color: #ff6b6b; font-weight: bold;">01/15 - 02/05</span> &nbsp;|&nbsp; 
-                                實習期間 <span style="color: #ffffff; font-weight: bold;">暑假 7-9月</span><br>
-                                招募期間 3-5月 &nbsp;|&nbsp; 
-                                <span style="border: 1px solid #777; padding: 1px 4px; font-size: 10px; border-radius: 2px;">特別說明</span> 實習生不佔原有員額
-                            </div>
-
-                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation">
-                                <tr>
-                                    <td align="center" bgcolor="transparent" style="border: 1px solid #ffffff;">
-                                        <a href="https://forms.gle/59GgxGZdz41LV6AW9" target="_blank" style="display: inline-block; color: #ffffff; font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: bold; letter-spacing: 2px; padding: 12px 35px; text-decoration: none;">
-                                            立即預約名額
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </td>
-                    </tr>
-                </table>
+                <a href="https://forms.gle/59GgxGZdz41LV6AW9" target="_blank" class="cta-button">
+                    立即預約名額
+                </a>
             </div>
-            </div>
-    </center>
+
+        </div>
+        </div>
+
 </body>
 </html>
