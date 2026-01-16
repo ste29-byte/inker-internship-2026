@@ -6,85 +6,86 @@
     <title>115 Inker Internship</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
     <style>
-        /* 全域設定：讓海報永遠置中 */
+        /* 重置與背景設定 */
         body {
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a; /* 網頁背景深灰 */
+            background-color: #1a1a1a; /* 深灰背景，讓海報突顯 */
             font-family: 'Noto Serif TC', serif;
+            
+            /* 讓海報永遠居中 */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* 確保背景填滿整個視窗 */
+            min-height: 100vh;
+            overflow: hidden; /* 防止電腦版出現不必要的捲軸 */
         }
 
-        /* 海報容器 - 核心設定 */
+        /* 海報主體 - 電腦版設定 */
         .poster-container {
-            width: 100%;
-            max-width: 600px;     /* 限制最大寬度 */
+            /* 🔴 核心修正：以螢幕高度為基準，確保一眼看完不需捲動 */
+            height: 90vh;         /* 高度佔螢幕 90% */
+            max-height: 850px;    /* 最大高度限制 */
             
-            /* 🔴 關鍵設定：強制 3:4 海報黃金比例 */
+            /* 🔴 黃金比例：寬度由高度自動推算，維持 3:4 */
             aspect-ratio: 3 / 4;  
-            
-            /* 🔴 關鍵設定：高度自動計算，但絕不超過螢幕 90% */
-            height: auto;         
-            max-height: 90vh;     
+            width: auto;          
             
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.6); /* 增加陰影，製造懸浮感 */
+            background-color: #333;
+            box-shadow: 0 0 60px rgba(0,0,0,0.6); /* 懸浮光影效果 */
             
             /* 背景圖設定 */
             background-image: url('https://images.pexels.com/photos/7972555/pexels-photo-7972555.jpeg');
             background-size: cover;
             background-position: center bottom;
-            background-color: #333;
         }
 
-        /* 漸層遮罩：確保文字清晰 */
+        /* 漸層遮罩：確保白字清楚 */
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 由下往上的黑色漸層 */
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 100%);
+            /* 漸層：底部深黑，往上變透明 */
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%);
+            
+            /* 彈性排版 */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 5% 5%; /* 使用百分比，隨海報大小縮放間距 */
+            padding: 6vh 4vh; /* 間距隨海報大小自動縮放 */
             box-sizing: border-box;
         }
 
-        /* 上方評價區 */
+        /* --- 上半部：評價區 --- */
         .reviews-section {
             text-align: center;
-            margin-top: 2%;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            margin-top: 2vh;
         }
         .review-item {
-            margin-bottom: 4%;
+            margin-bottom: 2.5vh;
         }
         .stars {
             color: #ffd700;
-            font-size: 14px;
+            font-size: 1.8vh; /* 字體隨畫面縮放 */
             letter-spacing: 3px;
-            margin-bottom: 5px;
+            margin-bottom: 0.8vh;
             display: block;
         }
         .quote {
             color: #f0f0f0;
-            font-size: 14px;
+            font-size: 1.6vh;
             font-style: italic;
-            line-height: 1.4;
-            opacity: 0.9;
+            line-height: 1.5;
+            opacity: 0.95;
         }
 
-        /* 下方內容區 */
+        /* --- 下半部：資訊區 --- */
         .content-section {
             text-align: center;
-            margin-bottom: 2%;
             width: 100%;
         }
 
@@ -92,101 +93,105 @@
         .slogan {
             font-family: 'Playfair Display', serif;
             color: #ccc;
-            font-size: 14px;
+            font-size: 1.8vh;
             letter-spacing: 2px;
             text-transform: uppercase;
             border-bottom: 1px solid rgba(255,255,255,0.4);
             display: inline-block;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            white-space: nowrap; /* 強制不換行 */
+            padding-bottom: 0.5vh;
+            margin-bottom: 2vh;
+            white-space: nowrap;
         }
 
-        /* 主標題 */
+        /* 主標題 115 INKER */
         .main-title {
             color: #ffffff;
-            font-size: 42px; /* 基本大小 */
+            font-size: 6vh; /* 大標題 */
             font-weight: 900;
             margin: 0;
-            line-height: 1.1;
+            line-height: 1;
             letter-spacing: 4px;
             text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(0,0,0,0.8);
-            white-space: nowrap; /* 強制不換行 */
-        }
-        
-        /* 針對比較扁的標題做 RWD 字體調整 */
-        /* 使用 clamp 語法：字體會隨容器寬度自動縮放，最小 24px，最大 46px */
-        .main-title {
-            font-size: clamp(24px, 8vw, 46px);
+            text-shadow: 0 0 30px rgba(0,0,0,0.8);
+            white-space: nowrap;
         }
 
         .sub-title {
             color: #dddddd;
-            font-size: 16px;
-            letter-spacing: 4px;
-            margin-top: 5px;
-            margin-bottom: 20px;
+            font-size: 2.2vh;
+            letter-spacing: 5px;
+            margin-top: 1vh;
+            margin-bottom: 3vh;
             font-weight: 400;
         }
 
-        /* 資訊細節 */
+        /* 詳細資訊 (日期/說明) */
         .info-details {
             font-family: Arial, sans-serif;
             color: #aaaaaa;
-            font-size: 12px;
-            line-height: 1.8;
+            font-size: 1.5vh;
+            line-height: 2;
             letter-spacing: 1px;
-            margin-bottom: 25px;
+            margin-bottom: 4vh;
             text-transform: uppercase;
         }
         .highlight-red { color: #ff6b6b; font-weight: bold; }
         .highlight-white { color: #ffffff; font-weight: bold; }
         .tag-box {
             border: 1px solid #999;
-            padding: 1px 5px;
-            font-size: 10px;
+            padding: 0 5px;
+            font-size: 1.2vh;
             border-radius: 2px;
             color: #ccc;
             margin-right: 5px;
+            vertical-align: text-top;
         }
 
-        /* 按鈕 */
+        /* 按鈕 CTA */
         .cta-button {
             display: inline-block;
             color: #ffffff;
             border: 1px solid rgba(255,255,255,0.8);
-            font-size: 15px;
+            font-size: 1.8vh;
             font-weight: bold;
             letter-spacing: 3px;
-            padding: 12px 35px;
+            padding: 1.5vh 5vh;
             text-decoration: none;
             transition: all 0.3s ease;
             background-color: rgba(0,0,0,0.2);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
         }
         .cta-button:hover {
             background-color: #ffffff;
             color: #000000;
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
         }
 
-        /* 🔴 手機版專用設定 (螢幕寬度小於 600px 時觸發) */
+        /* 🔴 手機版專用 (RWD) */
         @media screen and (max-width: 600px) {
             .poster-container {
-                /* 手機上取消 3:4 比例，改為填滿螢幕 */
-                aspect-ratio: auto;
+                /* 手機上取消 3:4 限制，改為全螢幕 */
+                width: 100%;
                 height: 100vh;
                 max-height: none;
-                width: 100%;
-                max-width: 100%;
+                aspect-ratio: unset;
                 border-radius: 0;
             }
             
-            /* 手機版字體微調 */
-            .slogan { font-size: 12px; }
-            .sub-title { font-size: 14px; }
-            .cta-button { width: 60%; text-align: center; }
+            /* 手機字體調整 (改回 px 確保清晰度) */
+            .main-title { font-size: 42px; }
+            .slogan { font-size: 14px; }
+            .sub-title { font-size: 18px; }
+            .info-details { font-size: 12px; }
+            .stars { font-size: 14px; }
+            .quote { font-size: 13px; }
+            
+            .cta-button {
+                font-size: 16px;
+                width: 70%;
+                text-align: center;
+                padding: 15px 0;
+            }
         }
     </style>
 </head>
