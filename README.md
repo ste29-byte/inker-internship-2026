@@ -10,56 +10,59 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a; /* 網頁背景深灰 */
+            background-color: #1a1a1a;
             font-family: 'Noto Serif TC', serif;
             display: flex;
             justify-content: center;
-            min-height: 100vh; /* 確保畫面高度足夠 */
+            align-items: center;
+            min-height: 100vh;
         }
 
         /* 海報主容器 */
         .poster-container {
             width: 100%;
-            max-width: 600px; /* 限制最大寬度，模擬手機/海報比例 */
-            height: 800px;    /* 設定固定高度，保持海報長寬感 */
+            max-width: 600px;
+            /* 這裡設定高度為視窗高度，確保在手機上是滿版的 */
+            height: 100vh; 
+            max-height: 900px; /* 電腦版不要太長 */
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5); /* 讓海報浮起來的陰影 */
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
             
-            /* 關鍵修改：使用 CSS 背景圖，避免白塊問題 */
+            /* 背景圖設定 */
             background-image: url('https://images.pexels.com/photos/7972555/pexels-photo-7972555.jpeg');
-            background-size: cover;     /* 讓圖片填滿 */
-            background-position: center bottom; /* 圖片對齊下方 */
-            background-color: #333;     /* 圖片載入前的底色 */
+            background-size: cover;
+            background-position: center bottom;
+            background-color: #333;
         }
 
-        /* 漸層遮罩：確保文字清晰可見 */
+        /* 漸層遮罩 */
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 由下往上的黑色漸層，底部較黑以襯托文字 */
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%);
+            /* 調整漸層濃度，讓文字更清楚 */
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 15%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 100%);
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* 讓評價在上面，資訊在下面 */
+            justify-content: space-between;
             padding: 40px 20px;
             box-sizing: border-box;
         }
 
-        /* 頂部：評價區 */
+        /* 頂部評價區 */
         .reviews-section {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 4vh; /* 使用 vh 單位，隨螢幕高度自動調整位置 */
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
         .review-item {
-            margin-bottom: 20px;
+            margin-bottom: 2vh;
         }
         .stars {
-            color: #ffd700; /* 金色星星 */
+            color: #ffd700;
             font-size: 14px;
             letter-spacing: 3px;
             margin-bottom: 5px;
@@ -73,13 +76,14 @@
             opacity: 0.9;
         }
 
-        /* 底部：主要資訊區 */
+        /* 底部資訊區 */
         .content-section {
             text-align: center;
             margin-bottom: 20px;
+            width: 100%;
         }
 
-        /* Slogan */
+        /* Slogan - 關鍵修改：強制不換行 */
         .slogan {
             font-family: 'Playfair Display', serif;
             color: #ccc;
@@ -90,18 +94,20 @@
             display: inline-block;
             padding-bottom: 8px;
             margin-bottom: 15px;
+            white-space: nowrap; /* 這行讓字死都不准換行 */
         }
 
         /* 主標題 */
         .main-title {
             color: #ffffff;
-            font-size: 46px; /* 稍微加大 */
+            font-size: 46px;
             font-weight: 900;
             margin: 0;
             line-height: 1.1;
             letter-spacing: 4px;
             text-transform: uppercase;
             text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            white-space: nowrap; /* 標題也不准換行 */
         }
         .sub-title {
             color: #dddddd;
@@ -114,7 +120,7 @@
 
         /* 資訊細節 */
         .info-details {
-            font-family: Arial, sans-serif; /* 資訊類文字用無襯線體較易讀 */
+            font-family: Arial, sans-serif;
             color: #aaaaaa;
             font-size: 13px;
             line-height: 1.8;
@@ -122,14 +128,8 @@
             margin-bottom: 30px;
             text-transform: uppercase;
         }
-        .highlight-red {
-            color: #ff6b6b;
-            font-weight: bold;
-        }
-        .highlight-white {
-            color: #ffffff;
-            font-weight: bold;
-        }
+        .highlight-red { color: #ff6b6b; font-weight: bold; }
+        .highlight-white { color: #ffffff; font-weight: bold; }
         .tag-box {
             border: 1px solid #999;
             padding: 1px 5px;
@@ -139,7 +139,6 @@
             margin-right: 5px;
         }
 
-        /* 按鈕樣式 */
         .cta-button {
             display: inline-block;
             color: #ffffff;
@@ -151,22 +150,47 @@
             text-decoration: none;
             transition: all 0.3s ease;
             background-color: rgba(0,0,0,0.2);
-            backdrop-filter: blur(4px); /* 磨砂玻璃效果 */
+            backdrop-filter: blur(4px);
         }
-        
         .cta-button:hover {
             background-color: #ffffff;
             color: #000000;
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
         }
 
-        /* 手機版微調 */
+        /* 🔴 針對手機螢幕的 RWD 自動縮放修正 */
         @media screen and (max-width: 480px) {
             .poster-container {
-                height: 100vh; /* 手機上填滿整個螢幕 */
-                max-width: 100%;
+                height: 100vh; /* 手機上填滿全螢幕 */
+                max-height: none;
+                border-radius: 0;
             }
-            .main-title { font-size: 36px; }
+            
+            /* 字體縮小，防止折行 */
+            .slogan {
+                font-size: 12px; /* 字變小 */
+                letter-spacing: 1px; /* 間距變小 */
+                width: 100%; /* 確保寬度足夠 */
+                border-bottom: 1px solid rgba(255,255,255,0.3);
+            }
+            
+            .main-title {
+                font-size: 36px; /* 標題縮小 */
+                letter-spacing: 2px;
+            }
+            
+            .sub-title {
+                font-size: 14px;
+            }
+            
+            .info-details {
+                font-size: 11px; /* 資訊字體縮小 */
+            }
+            
+            .cta-button {
+                width: 70%; /* 按鈕在手機上寬一點比較好按 */
+                padding: 12px 0;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -205,7 +229,7 @@
             </div>
 
         </div>
-        </div>
+    </div>
 
 </body>
 </html>
